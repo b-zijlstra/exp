@@ -22,39 +22,39 @@
 #include <limits>   // numeric_limits
 #include <stdio.h>  // printf
 
- /*
-  * @fn m_exp
-  *
-  * Calculate exponent of x using MacLaurin series
-  * See: http://www.songho.ca/math/taylor/taylor_exp.html
-  *
-  * Notes: * m_exp is used to differentiate it from std::exp()
-  *        * The MacLaurin series has poor convergence, std::exp() is way more efficient
-  *
-  * @param x exponent
-  *
-  * @return exponent of x; i.e. exp(x)
-  */
- double m_exp(double x) {
-     static const double prec = std::numeric_limits<double>::epsilon();
+/*
+ * @fn m_exp
+ *
+ * Calculate exponent of x using MacLaurin series
+ * See: http://www.songho.ca/math/taylor/taylor_exp.html
+ *
+ * Notes: * m_exp is used to differentiate it from std::exp()
+ *        * The MacLaurin series has poor convergence, std::exp() is way more efficient
+ *
+ * @param x exponent
+ *
+ * @return exponent of x; i.e. exp(x)
+ */
+double m_exp(double x) {
+    static const double prec = std::numeric_limits<double>::epsilon();
 
-     auto result    = 1.0;    // final answer
-     auto square    = 1.0;    // variable to hold current term
-     auto factorial = 1.0;    // variable to hold current term
-     auto term      = 1.0;    // variable to hold current term
-     auto i         = 1;      // counter
+    auto result    = 1.0;    // final answer
+    auto square    = 1.0;    // variable to hold current term
+    auto factorial = 1.0;    // variable to hold current term
+    auto term      = 1.0;    // variable to hold current term
+    auto i         = 1;      // counter
 
-     // perform MacLaurin expansion
-     while(std::abs(term / result) > prec) {   // terminate when the last term could not be handled due to machine precision
-         square *= x;
-         factorial *= i;
-         term = square / factorial;
-         result+=term;
-         i++;
-     }
+    // perform MacLaurin expansion
+    while(std::abs(term / result) > prec) {   // terminate when the last term could not be handled due to machine precision
+        square *= x;
+        factorial *= i;
+        term = square / factorial;
+        result+=term;
+        i++;
+    }
 
-     return result;
- }
+    return result;
+}
 
 /*
  * @fn main
